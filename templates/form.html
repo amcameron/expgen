@@ -1,0 +1,55 @@
+<!doctype html>
+<html>
+    <body>
+        <title>Random exposure generator</title>
+        <form name="input" method="POST">
+            Exposure:
+            <input type="range" name="target"
+            min="{{ expMin }}" max="{{ expMax }}"
+            {% if target %}
+                value="{{ target }}"
+            {% endif %}
+            /> <br />
+
+            <input type="submit" value="Submit" />
+        </form>
+
+        <form name="output">
+            Shutter:
+            <input type="range" name="shutter"
+            min="{{ shutterMin }}" max="{{ shutterMax }}"
+            {% if shutter %}
+                value="{{ shutter }}"
+            {% endif %}
+            />
+            {% if sShutter %}
+                {{ sShutter }}
+            {% endif %}
+            <br />
+
+            Aperture:
+            <input type="range" name="aperture"
+            min="{{ apertureMin }}" max="{{ apertureMax }}"
+            {% if aperture %}
+                value="{{ aperture }}"
+            {% endif %}
+            />
+            {% if sAperture %}
+                {{ sAperture }}
+            {% endif %}
+            <br />
+
+            ISO:
+            <input type="range" name="iso"
+            min="{{ isoMin }}" max="{{ isoMax }}"
+            {% if iso %}
+                value="{{ iso }}"
+            {% endif %}
+            />
+            {% if sIso %}
+                {{ sIso }}
+            {% endif %}
+        </form>
+    </body>
+</html>
+
