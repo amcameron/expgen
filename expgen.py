@@ -8,6 +8,10 @@ MIN_ISO = exposure.iso_to_ev('1600 ISO')
 MAX_ISO = exposure.iso_to_ev('100 ISO')
 MIN_APERTURE = exposure.fnumber_to_ev('f/1.4')
 MAX_APERTURE = exposure.fnumber_to_ev('f/22.0')
+MIN_SHUTTER = exposure.seconds_to_ev('1/10 s')
+MAX_SHUTTER = exposure.seconds_to_ev('1/2000 s')
+MIN_EXPOSURE = MIN_SHUTTER + MIN_APERTURE + MIN_ISO
+MAX_EXPOSURE = exposure.SUNNY
 
 def synthesize(exp, luck, focal):
     # TODO: use bounds during synthesis so we can't generate invalid values.
