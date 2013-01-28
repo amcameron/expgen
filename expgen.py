@@ -1,7 +1,9 @@
 #!/usr/bin/env python
+import logging
 from optparse import OptionParser
 import random
 import exposure
+logger = logging.getLogger(__name__)
 
 LUCK_SCALE_FACTOR = 2
 MIN_ISO = exposure.iso_to_ev('1600 ISO')
@@ -14,6 +16,7 @@ MIN_EXPOSURE = MIN_SHUTTER + MIN_APERTURE + MIN_ISO
 MAX_EXPOSURE = exposure.SUNNY
 
 def synthesize(exp, luck, focal):
+    logger.debug('synthesizing. target EV: {}'.format(exp))
     # TODO: use bounds during synthesis so we can't generate invalid values.
     random.seed()
     evFocal = exposure.seconds_to_ev('1/' + focal + 's')
@@ -28,9 +31,12 @@ def synthesize(exp, luck, focal):
     isoUpper = min(MAX_ISO, remainder - MIN_APERTURE)
     evIso = random.uniform(isoLower, isoUpper)
     evAperture = evTarget - evIso - evShutter
+    logger.debug('values synthesized: {}'.format(
+        exposure.evs_to_exposure(evShutter, evAperture, evIso)))
     return evShutter, evAperture, evIso
 
 if __name__ == "__main__":
+    logging.basicConfig(level=logging.DEBUG)
     usage = "usage: %prog [options]"
     parser = OptionParser()
     parser.add_option(
